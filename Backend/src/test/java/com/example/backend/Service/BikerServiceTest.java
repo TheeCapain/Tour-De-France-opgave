@@ -22,7 +22,7 @@ class BikerServiceTest {
     }
 
     @Test
-    void saveBiker() {
+    void CheckIfBikerTeamIsNull() {
         Biker biker = new Biker();
 
         assertNull(bikerService.saveBiker(biker));
