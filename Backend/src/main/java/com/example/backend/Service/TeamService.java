@@ -5,6 +5,7 @@ import com.example.backend.Repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -15,6 +16,10 @@ public class TeamService {
 
     public Optional<Team> getByID(int id){
         return teamRepository.findById(id);
+    }
+
+    public List<Team> getAllTeams(){
+        return teamRepository.findAll();
     }
 
     public Team saveTeam(Team team){

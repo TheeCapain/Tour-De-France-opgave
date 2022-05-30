@@ -1,6 +1,7 @@
 package com.example.backend.Model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,10 +11,11 @@ public class Team {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int teamID;
+    @NotNull
     private String teamName;
 
     @OneToMany
-    @JoinColumn(name = "bikerName")
+    @JoinColumn(name = "team_id")
     private List<Biker> teamMembers;
 
     public int getTeamID() {

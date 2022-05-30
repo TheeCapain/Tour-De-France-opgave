@@ -11,11 +11,13 @@ public class Biker {
     private String time;
     private String mountainPoints;
     private String SprintPoints;
+
     private String teamName;
 
     public String getTeamName() {
         return teamName;
     }
+
 
     public void setTeamName(String teamName) {
         this.teamName = teamName;

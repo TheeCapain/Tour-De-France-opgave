@@ -5,6 +5,7 @@ import com.example.backend.Service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -18,6 +19,11 @@ public class TeamController {
     @GetMapping("{id}")
     public Optional<Team> getTeamById(@PathVariable int id) {
         return teamService.getByID(id);
+    }
+
+    @GetMapping("/all")
+    public List<Team> getAllTeams(){
+        return teamService.getAllTeams();
     }
 
     @PostMapping("/new")

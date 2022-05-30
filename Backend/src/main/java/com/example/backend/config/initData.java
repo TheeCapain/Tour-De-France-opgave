@@ -25,9 +25,9 @@ public class initData implements CommandLineRunner {
         Team team = new Team();
         team.setTeamName("Alpecin-Deceuninnck");
         Team team2 = new Team();
-        team.setTeamName("Trek - Segafredo");
+        team2.setTeamName("Trek - Segafredo");
         Team team3= new Team();
-        team.setTeamName("BORA - hansgrohe");
+        team3.setTeamName("BORA - hansgrohe");
 
         teamService.saveTeam(team);
         teamService.saveTeam(team2);
