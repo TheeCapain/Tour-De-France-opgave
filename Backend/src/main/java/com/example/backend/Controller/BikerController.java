@@ -41,7 +41,7 @@ public class BikerController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Biker> getBikerById(@PathVariable int id) {
+    public Biker getBikerById(@PathVariable int id) {
         return bikerService.getBikerById(id);
     }
 

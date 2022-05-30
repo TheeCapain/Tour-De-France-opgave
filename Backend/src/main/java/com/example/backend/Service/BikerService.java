@@ -2,12 +2,11 @@ package com.example.backend.Service;
 
 import com.example.backend.Model.Biker;
 import com.example.backend.Repository.BikerRepository;
+import com.example.backend.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BikerService {
@@ -26,8 +25,8 @@ public class BikerService {
         return null;
     }
 
-    public Optional<Biker> getBikerById(int id) {
-            return bikerRepository.findById(id);
+    public Biker getBikerById(int id) {
+            return bikerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Biker with this ID"));
 
 
     }
