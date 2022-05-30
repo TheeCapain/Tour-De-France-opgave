@@ -51,10 +51,9 @@ public class BikerController {
     }
 
     @PutMapping("/update/{id}")
-    public Biker updateBiker(@PathVariable int id) {
-        Biker biker = bikerService.getBikerById(id);
+    public Biker updateBiker(@RequestBody Biker biker, @RequestParam int id) {
         if (biker != null) {
-            return bikerService.updateBiker(biker, id);
+            return bikerService.saveBiker(biker);
         }
         return null;
     }

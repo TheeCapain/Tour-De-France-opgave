@@ -7,9 +7,7 @@ async function fetchAllBikers() {
 
 
 async function printBikerTable() {
-
   const teamList = await fetchAllBikers();
-
   for (let team of teamList) {
     for (let i = 0; i < team.teamMembers.length; i++) {
       console.log(team.teamMembers[i].bikerName)
@@ -19,27 +17,25 @@ async function printBikerTable() {
       let td1 = document.createElement("td")
       td1.textContent = team.teamID;
       let td2 = document.createElement("td")
-      td2.textContent = team.teamMembers[i].bikerName;
       td2.id = team.teamMembers[i].bikerId
       let name = document.createElement("input")
       name.type = "text"
+      name.value = team.teamMembers[i].bikerName;
       let td3 = document.createElement("td")
       let selector = document.createElement("select")
-
+      selector.textContent = team.teamName
       for (let team of teamList) {
         let option = document.createElement("option")
         option.textContent = team.teamName
         console.log(option.textContent)
         selector.appendChild(option)
       }
-
-
       let td4 = document.createElement("td")
       let update = document.createElement("button")
       update.textContent = "Update rider"
       update.className = "btn btn-success"
-      update.onclick = function () {
-        updateBiker(team.teamMembers[i].bikerId)
+      update.onclick = await function () {
+        getBiker(team.teamMembers[i])
       }
       let td5 = document.createElement("td")
       let deletebtn = document.createElement("button")
@@ -54,6 +50,7 @@ async function printBikerTable() {
       parent.appendChild(tableRow)
       tableRow.appendChild(td1);
       tableRow.appendChild(td2)
+      td2.appendChild(name)
       tableRow.appendChild(td3)
       td3.appendChild(selector)
       tableRow.appendChild(td4)
@@ -64,51 +61,51 @@ async function printBikerTable() {
   }
 }
 
-//Update
+async function getBiker(biker) {
+  const url = "http://localhost:8081/biker/" + biker.bikerId
+  const selectedBiker = await fetch(url).then(response => response.json());
+  await updateBiker(selectedBiker);
+}
+
+//Update den virker sgu da ikkeeeee
 async function updateBiker(biker) {
   console.log(biker)
-  const url = "http://localhost:8081/biker/" + biker;
-
+  const url = "http://localhost:8081/biker/update/" + biker.bikerId;
   const fetchOptions = {
     method: "PUT",
     headers: {
       "Content-type": "application/json"
     },
-    body: ""
-  }
-  const jsonString = JSON.stringify(biker);
-  fetchOptions.body = jsonString;
-
-  //calls backend and wait for return
-  const response = await fetch(url, fetchOptions);
-
-  out(response);
-  if (!response.ok) {
-    out("Det gik ikke godt med update");
+    body: JSON.stringify(biker)
   };
 
+  const response = await fetch(url, fetchOptions)
+  if (!response) {
+    const errorMessage = await response.text();
+    throw new Error(errorMessage);
+  }
   return response;
 }
 
 
 //Delete
-  async function deleteBiker(id) {
-    const url = "http://localhost:8081/biker/delete/" + id;
+async function deleteBiker(id) {
+  const url = "http://localhost:8081/biker/delete/" + id;
 
-    const fetchOptions = {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json"
-      },
-      body: ""
-    }
-    const response = await fetch(url, fetchOptions);
-
-    if (!response.ok) {
-      console.log("fejl")
-    }
-
-    return response;
+  const fetchOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: ""
   }
+  const response = await fetch(url, fetchOptions);
+
+  if (!response.ok) {
+    console.log("fejl")
+  }
+
+  return response;
+}
 
 
