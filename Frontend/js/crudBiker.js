@@ -1,14 +1,15 @@
 
 
-async function updateStatusPost(post) {
 
-  console.log(body)
+//Update
+async function updateBiker(biker) {
+
   const fetchOptions = {
     method: "PUT",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify(body)
   };
-  const response = await fetch(url + post.id, fetchOptions);
+  const response = await fetch(url, fetchOptions);
 
   if (!response) {
     const errorMessage = await response.text();

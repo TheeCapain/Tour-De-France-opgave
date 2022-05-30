@@ -4,9 +4,12 @@ import com.example.backend.Model.Biker;
 import com.example.backend.Model.Team;
 import com.example.backend.Service.BikerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +20,15 @@ public class BikerController {
 
     @Autowired
     private BikerService bikerService;
+
+    private Sort.Direction getSortDirection(String direction) {
+        if (direction.equals("asc")) {
+            return Sort.Direction.DESC;
+        } else {
+            return Sort.DEFAULT_DIRECTION;
+        }
+    }
+
 
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,6 +54,29 @@ public class BikerController {
     @DeleteMapping("/delete/{id}")
     public void deleteBiker(@PathVariable int id){
         bikerService.deleteBiker(id);
+    }
+
+    @GetMapping("/sorted")
+    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerName, desc") String[] sort) {
+        for (String s : sort) {
+            System.out.println(s);
+        }
+        List<Sort.Order> orders = new ArrayList<>();
+
+        if (sort[0].contains(",")) {
+            for (String sortOrder : sort) {
+                String[] _sort = sortOrder.split(",");
+                orders.add(new Sort.Order(getSortDirection(_sort[1]), _sort[0]));
+            }
+        } else {
+            orders.add(new Sort.Order(getSortDirection(sort[1]), sort[0]));
+        }
+
+        List<Biker> bikers = bikerService.sortTeams(Sort.by(orders));
+
+        if (bikers.isEmpty())
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(bikers, HttpStatus.OK);
     }
 
 

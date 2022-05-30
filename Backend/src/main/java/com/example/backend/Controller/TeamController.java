@@ -1,6 +1,5 @@
 package com.example.backend.Controller;
 
-import com.example.backend.Model.Biker;
 import com.example.backend.Model.Team;
 import com.example.backend.Service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,22 +16,28 @@ public class TeamController {
     @Autowired
     TeamService teamService;
 
+
     @GetMapping("{id}")
     public Optional<Team> getTeamById(@PathVariable int id) {
         return teamService.getByID(id);
     }
 
     @GetMapping("/all")
-    public List<Team> getAllTeams(){
+    public List<Team> getAllTeams() {
         return teamService.getAllTeams();
     }
 
-    @GetMapping("/allfrom/{team}")
-    public List<Biker> getAllFromTeam(@PathVariable String teamName){ return teamService.getAllFromTeam(teamName);
+    @GetMapping("/allfrom/{id}")
+    public Optional<Team> getAllFromTeam(@PathVariable int id) {
+        return teamService.getAllFromTeam(id);
     }
 
     @PostMapping("/new")
     public Team createNewTeam(@RequestBody Team team) {
         return teamService.saveTeam(team);
     }
+
+
+
 }
+

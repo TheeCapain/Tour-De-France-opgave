@@ -1,8 +1,10 @@
 const bikerTable = "http://localhost:8080/team/all"
+const sortedTable = "http://localhost:8080/team/sorted"
 
 async function fetchAllBikers() {
   return fetch(bikerTable).then(response => response.json())
 }
+
 
 async function printBikerTable() {
   const teamList = await fetchAllBikers();
@@ -18,6 +20,7 @@ async function printBikerTable() {
       let name = document.createElement("input")
       let td2 = document.createElement("td")
       td2.textContent = team.teamMembers[i].bikerName;
+      td2.id = team.teamMembers[i].bikerId
       let td3 = document.createElement("td")
       let selector = document.createElement("select")
 
@@ -35,6 +38,9 @@ async function printBikerTable() {
       update.className = "btn btn-success"
       let td5 = document.createElement("td")
       let deletebtn = document.createElement("button")
+      deletebtn.onclick = function (){
+        DeleteBiker(team.teamMembers[i].bikerId)
+      }
       deletebtn.textContent = "Delete rider"
       deletebtn.className = "btn btn-danger"
 
@@ -51,6 +57,27 @@ async function printBikerTable() {
 
     }
   }
+}
+
+
+//Delete
+async function DeleteBiker(id) {
+  const url = "http://localhost:8080/biker/delete/" + id;
+
+  const fetchOptions = {
+    method: "DELETE",
+    headers: {
+      "Content-type": "application/json"
+    },
+    body: ""
+  }
+  const response = await fetch(url, fetchOptions);
+
+  if (!response.ok) {
+    console.log("fejl")
+  }
+
+  return response;
 }
 
 
