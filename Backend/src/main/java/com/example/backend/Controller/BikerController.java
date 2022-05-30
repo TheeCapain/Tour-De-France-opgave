@@ -45,15 +45,18 @@ public class BikerController {
         return bikerService.getBikerById(id);
     }
 
-
     @GetMapping("/all")
     public List<Biker> getAllBikers() {
         return bikerService.getAllBikers();
     }
 
     @PutMapping("/update/{id}")
-    public Biker updateBiker(@RequestBody Biker biker, @PathVariable int id) {
-        return bikerService.updateBiker(biker, id);
+    public Biker updateBiker(@PathVariable int id) {
+        Biker biker = bikerService.getBikerById(id);
+        if (biker != null) {
+            return bikerService.updateBiker(biker, id);
+        }
+        return null;
     }
 
     @DeleteMapping("/delete/{id}")
@@ -61,11 +64,8 @@ public class BikerController {
         bikerService.deleteBiker(id);
     }
 
-    @GetMapping("/sorted")
-    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerTime, asc") String[] sort) {
-        for (String s : sort) {
-            System.out.println(s);
-        }
+    @GetMapping("/sortedBest")
+    public List<Biker> getBikersByBestTime(@RequestParam(defaultValue = "bikerTime, asc") String[] sort) {
         List<Sort.Order> orders = new ArrayList<>();
 
         if (sort[0].contains(",")) {
@@ -77,10 +77,8 @@ public class BikerController {
             orders.add(new Sort.Order(getSortDirection(sort[1]), sort[0]));
         }
 
-        List<Biker> bikers = bikerRepository.findAll(Sort.by(orders));
+        return bikerRepository.findAll(Sort.by(orders));
 
-        if (bikers.isEmpty())
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        return new ResponseEntity<>(bikers, HttpStatus.OK);
+
     }
 }

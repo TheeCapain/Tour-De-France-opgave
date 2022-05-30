@@ -1,5 +1,5 @@
-const bikerTable = "http://localhost:8080/team/all"
-const sortedTable = "http://localhost:8080/team/sorted"
+const bikerTable = "http://localhost:8081/team/all"
+
 
 async function fetchAllBikers() {
   return fetch(bikerTable).then(response => response.json())
@@ -7,6 +7,7 @@ async function fetchAllBikers() {
 
 
 async function printBikerTable() {
+
   const teamList = await fetchAllBikers();
 
   for (let team of teamList) {
@@ -36,10 +37,13 @@ async function printBikerTable() {
       let update = document.createElement("button")
       update.textContent = "Update rider"
       update.className = "btn btn-success"
+      update.onclick = function () {
+        updateBiker(team.teamMembers[i].bikerId)
+      }
       let td5 = document.createElement("td")
       let deletebtn = document.createElement("button")
-      deletebtn.onclick = function (){
-        DeleteBiker(team.teamMembers[i].bikerId)
+      deletebtn.onclick = function () {
+        deleteBiker(team.teamMembers[i].bikerId)
       }
       deletebtn.textContent = "Delete rider"
       deletebtn.className = "btn btn-danger"
@@ -54,30 +58,55 @@ async function printBikerTable() {
       td4.appendChild(update)
       tableRow.appendChild(td5)
       td5.appendChild(deletebtn)
-
     }
   }
 }
 
-
-//Delete
-async function DeleteBiker(id) {
-  const url = "http://localhost:8080/biker/delete/" + id;
+//Update
+async function updateBiker(biker) {
+  console.log(biker)
+  const url = "http://localhost:8081/biker/" + biker;
 
   const fetchOptions = {
-    method: "DELETE",
+    method: "PUT",
     headers: {
       "Content-type": "application/json"
     },
     body: ""
   }
+  const jsonString = JSON.stringify(biker);
+  fetchOptions.body = jsonString;
+
+  //calls backend and wait for return
   const response = await fetch(url, fetchOptions);
 
+  out(response);
   if (!response.ok) {
-    console.log("fejl")
-  }
+    out("Det gik ikke godt med update");
+  };
 
   return response;
 }
+
+
+//Delete
+  async function deleteBiker(id) {
+    const url = "http://localhost:8081/biker/delete/" + id;
+
+    const fetchOptions = {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: ""
+    }
+    const response = await fetch(url, fetchOptions);
+
+    if (!response.ok) {
+      console.log("fejl")
+    }
+
+    return response;
+  }
 
 
