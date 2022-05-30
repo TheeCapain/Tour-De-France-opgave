@@ -10,11 +10,20 @@ public class Biker {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int bikerId;
     private String bikerName;
+    private int bikerTime;
 
     @JsonBackReference
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn(name="teamid")
     private Team team;
+
+    public int getBikerTime() {
+        return bikerTime;
+    }
+
+    public void setBikerTime(int bikerTime) {
+        this.bikerTime = bikerTime;
+    }
 
     public String getBikerName() {
         return bikerName;

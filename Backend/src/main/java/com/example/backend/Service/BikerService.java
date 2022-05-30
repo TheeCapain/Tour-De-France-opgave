@@ -27,8 +27,6 @@ public class BikerService {
 
     public Biker getBikerById(int id) {
             return bikerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No Biker with this ID"));
-
-
     }
 
     public Biker updateBiker(Biker biker, int id) {

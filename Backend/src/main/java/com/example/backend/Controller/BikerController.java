@@ -62,7 +62,7 @@ public class BikerController {
     }
 
     @GetMapping("/sorted")
-    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerName, asc") String[] sort) {
+    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerTime, asc") String[] sort) {
         for (String s : sort) {
             System.out.println(s);
         }

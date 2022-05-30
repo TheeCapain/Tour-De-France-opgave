@@ -36,21 +36,25 @@ public class initData implements CommandLineRunner {
         Biker biker = new Biker();
         biker.setBikerName("PICHON Laurent");
         biker.setTeam(team);
+        biker.setBikerTime(22);
         bikerService.saveBiker(biker);
 
         Biker biker2 = new Biker();
         biker2.setBikerName("QUINTANA Nairo");
         biker2.setTeam(team);
+        biker2.setBikerTime(221);
         bikerService.saveBiker(biker2);
 
         Biker biker3 = new Biker();
         biker3.setBikerName("BARGUIL Warren");
         biker3.setTeam(team);
+        biker3.setBikerTime(4224);
         bikerService.saveBiker(biker3);
 
         Biker biker4 = new Biker();
         biker4.setBikerName("BOUHANNI Nacer");
         biker4.setTeam(team);
+        biker4.setBikerTime(1);
         bikerService.saveBiker(biker4);
 
         //HOLD 2
@@ -58,21 +62,25 @@ public class initData implements CommandLineRunner {
         Biker biker5 = new Biker();
         biker5.setBikerName("VAN MOER Brent");
         biker5.setTeam(team2);
+        biker5.setBikerTime(51);
         bikerService.saveBiker(biker5);
 
         Biker biker6 = new Biker();
         biker6.setBikerName("WELLENS Tim");
         biker6.setTeam(team2);
+        biker6.setBikerTime(81);
         bikerService.saveBiker(biker6);
 
         Biker biker7 = new Biker();
         biker7.setBikerName("GILBERT Philippe");
         biker7.setTeam(team2);
+        biker7.setBikerTime(32);
         bikerService.saveBiker(biker7);
 
         Biker biker8 = new Biker();
         biker8.setBikerName("EWAN Caleb");
         biker8.setTeam(team2);
+        biker8.setBikerTime(2);
         bikerService.saveBiker(biker8);
 
 
