@@ -1,35 +1,47 @@
-const bikerTable = "http://localhost:8080/biker/all"
+const bikerTable = "http://localhost:8080/team/all"
 
-async function fetchAllBikerS() {
+async function fetchAllBikers() {
   return fetch(bikerTable).then(response => response.json())
 }
 
 async function printBikerTable() {
-  const bikerList = await fetchAllBikerS();
+  const teamList = await fetchAllBikers();
 
-  for (let biker of bikerList) {
-    let parent = document.getElementById("parent")
-    console.log(biker)
-    const tableRow = document.createElement("tr")
+  for (let team of teamList) {
+    for (let i = 0; i < team.teamMembers.length; i++) {
+      console.log(team.teamMembers[i].bikerName)
 
-    let td1 = document.createElement("td")
-    td1.textContent = biker.bikerId;
-    let td2 = document.createElement("td")
-    td2.textContent = biker.name;
-    let td3 = document.createElement("td")
-    td3.textContent = biker.teamname;
-    let td4 = document.createElement("td")
-    td4.textContent = biker.mountainPoints
+      let parent = document.getElementById("parent")
+      let tableRow = document.createElement("tr")
+      let td1 = document.createElement("td")
+      td1.textContent = team.teamID;
+      let name = document.createElement("input")
+      let td2 = document.createElement("td")
+      td2.textContent = team.teamMembers[i].bikerName;
+      let td3 = document.createElement("td")
+      let selector = document.createElement("select")
 
-    parent.appendChild(tableRow)
-    tableRow.appendChild(td1);
-    tableRow.appendChild(td2)
-    tableRow.appendChild(td3)
-    tableRow.appendChild(td4)
+      for (let team of teamList) {
+          let option = document.createElement("option")
+          option.textContent = team.teamName
+          console.log(option.textContent)
+        selector.appendChild(option)
+        }
+
+
+      let td4 = document.createElement("button")
+      td4.textContent = "Update user"
+      td4.className = "btn btn-success"
+
+
+      parent.appendChild(tableRow)
+      tableRow.appendChild(td1);
+      tableRow.appendChild(td2)
+      tableRow.appendChild(td3)
+      td3.appendChild(selector)
+      tableRow.appendChild(td4)
+    }
   }
 }
-
-
-printBikerTable()
 
 
