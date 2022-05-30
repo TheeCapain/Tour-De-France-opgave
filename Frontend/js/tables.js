@@ -23,7 +23,10 @@ async function printBikerTable() {
       name.value = team.teamMembers[i].bikerName;
       let td3 = document.createElement("td")
       let selector = document.createElement("select")
-      selector.textContent = team.teamName
+      let currentOption = document.createElement("option")
+      currentOption.textContent = team.teamName
+      currentOption.defaultSelected
+      selector.appendChild(currentOption)
       for (let team of teamList) {
         let option = document.createElement("option")
         option.textContent = team.teamName
