@@ -11,7 +11,6 @@ public class Biker {
     private String time;
     private String mountainPoints;
     private String SprintPoints;
-
     private String teamName;
 
     public String getTeamName() {

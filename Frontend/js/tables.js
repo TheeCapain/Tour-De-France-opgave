@@ -9,8 +9,6 @@ async function printBikerTable() {
 
   for (let biker of bikerList) {
     let parent = document.getElementById("parent")
-
-
     console.log(biker)
     const tableRow = document.createElement("tr")
 
@@ -23,7 +21,7 @@ async function printBikerTable() {
     let td4 = document.createElement("td")
     td4.textContent = biker.mountainPoints
 
-      parent.appendChild(tableRow)
+    parent.appendChild(tableRow)
     tableRow.appendChild(td1);
     tableRow.appendChild(td2)
     tableRow.appendChild(td3)

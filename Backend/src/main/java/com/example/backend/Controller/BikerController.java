@@ -1,6 +1,7 @@
 package com.example.backend.Controller;
 
 import com.example.backend.Model.Biker;
+import com.example.backend.Model.Team;
 import com.example.backend.Service.BikerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,10 @@ public class BikerController {
     private BikerService bikerService;
 
     @PostMapping("/new")
-    public Biker createNewBiker(@RequestBody Biker biker){
+    public Biker createNewBiker(@RequestParam String name, @RequestParam String teamName){
+        Biker biker = new Biker();
+        biker.setName(name);
+        biker.setTeamName(teamName);
         return bikerService.saveBiker(biker);
     }
 
