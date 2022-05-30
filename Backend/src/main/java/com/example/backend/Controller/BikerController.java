@@ -1,19 +1,47 @@
 package com.example.backend.Controller;
 
+import com.example.backend.Model.Biker;
 import com.example.backend.Service.BikerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/biker")
+@RequestMapping("biker")
 public class BikerController {
 
     @Autowired
     private BikerService bikerService;
+
+    @PostMapping("/new")
+    public Biker createNewBiker(@RequestBody Biker biker){
+        return bikerService.saveBiker(biker);
+    }
+
+    @GetMapping("/{id}")
+    public Optional<Biker> getBikerById(@PathVariable int id){
+       return bikerService.getBikerByid(id);
+    }
+    @GetMapping("/all")
+    public List<Biker> getAllBikers(){
+        return bikerService.getAllBikers();
+    }
+
+    @PutMapping("/update/{id}")
+    public Biker updateBiker(@RequestBody Biker biker, @PathVariable int id){
+        return bikerService.updateBiker(biker, id);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public void deleteBiker(@PathVariable int id){
+        bikerService.deleteBiker(id);
+    }
+
+
+
 
 
 }
