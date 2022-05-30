@@ -1,15 +1,15 @@
-const allBikers = "http://localhost:8081/biker/all"
+const sortedTable = "http://localhost:8081/biker/sortedBest"
 
-
-async function fetchBikers() {
-  return fetch(allBikers).then(response => response.json())
+async function fetchSorted() {
+  return fetch(sortedTable).then(response => response.json())
 }
 
-async function printBikerTable() {
 
-  const bikerList = await fetchBikers();
-  console.log(bikerList)
+async function printSortedTable() {
+
+  const bikerList = await fetchSorted();
   for (let biker of bikerList) {
+
     let parent = document.getElementById("parent")
     let tableRow = document.createElement("tr")
     let td1 = document.createElement("td")
@@ -27,4 +27,4 @@ async function printBikerTable() {
   }
 }
 
-printBikerTable()
+printSortedTable()

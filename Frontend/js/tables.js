@@ -18,10 +18,11 @@ async function printBikerTable() {
       let tableRow = document.createElement("tr")
       let td1 = document.createElement("td")
       td1.textContent = team.teamID;
-      let name = document.createElement("input")
       let td2 = document.createElement("td")
       td2.textContent = team.teamMembers[i].bikerName;
       td2.id = team.teamMembers[i].bikerId
+      let name = document.createElement("input")
+      name.type = "text"
       let td3 = document.createElement("td")
       let selector = document.createElement("select")
 
@@ -44,6 +45,7 @@ async function printBikerTable() {
       let deletebtn = document.createElement("button")
       deletebtn.onclick = function () {
         deleteBiker(team.teamMembers[i].bikerId)
+        alert(team.teamMembers[i].bikerName + " Vil blive fjernet ved at trykke på Load updates")
       }
       deletebtn.textContent = "Delete rider"
       deletebtn.className = "btn btn-danger"
