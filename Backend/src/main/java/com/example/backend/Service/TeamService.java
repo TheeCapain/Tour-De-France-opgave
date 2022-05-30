@@ -1,5 +1,6 @@
 package com.example.backend.Service;
 
+import com.example.backend.Model.Biker;
 import com.example.backend.Model.Team;
 import com.example.backend.Repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,9 @@ public class TeamService {
 
     public Team saveTeam(Team team){
         return teamRepository.save(team);
+    }
+
+    public List<Biker> getAllFromTeam(String teamName){
+        return teamRepository.findAllByTeamName(teamName);
     }
 }

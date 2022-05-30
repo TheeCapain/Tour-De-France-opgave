@@ -13,8 +13,7 @@ public class Team {
     @NotNull
     private String teamName;
 
-    @OneToMany
-    @JoinColumn(name = "team_id")
+    @OneToMany(mappedBy = "team")
     private List<Biker> teamMembers;
 
     public int getTeamID() {

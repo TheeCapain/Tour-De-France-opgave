@@ -11,8 +11,8 @@ import java.util.Optional;
 @Service
 public class BikerService {
 
-    @Autowired
-    BikerRepository bikerRepository;
+   @Autowired
+   BikerRepository bikerRepository;
 
     public List<Biker> getAllBikers(){
         return bikerRepository.findAll();

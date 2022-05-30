@@ -17,7 +17,7 @@ async function printBikerTable() {
     let td2 = document.createElement("td")
     td2.textContent = biker.name;
     let td3 = document.createElement("td")
-    td3.textContent = biker.teamName;
+    td3.textContent = biker.teamname;
     let td4 = document.createElement("td")
     td4.textContent = biker.mountainPoints
 

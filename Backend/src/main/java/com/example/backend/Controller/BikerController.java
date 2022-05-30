@@ -4,6 +4,7 @@ import com.example.backend.Model.Biker;
 import com.example.backend.Model.Team;
 import com.example.backend.Service.BikerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,10 +19,9 @@ public class BikerController {
     private BikerService bikerService;
 
     @PostMapping("/new")
-    public Biker createNewBiker(@RequestParam String name, @RequestParam String teamName){
-        Biker biker = new Biker();
-        biker.setName(name);
-        biker.setTeamName(teamName);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Biker createNewBiker(@RequestBody Biker biker){
+        System.out.println(biker.getBikerName());
         return bikerService.saveBiker(biker);
     }
 
