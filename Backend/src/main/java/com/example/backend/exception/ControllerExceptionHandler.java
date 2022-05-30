@@ -1,4 +1,4 @@
-package com.example.backend.Model;
+package com.example.backend.exception;
 
 
 import com.example.backend.exception.ErrorMessage;
