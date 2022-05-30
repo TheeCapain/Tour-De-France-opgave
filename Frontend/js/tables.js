@@ -22,16 +22,21 @@ async function printBikerTable() {
       let selector = document.createElement("select")
 
       for (let team of teamList) {
-          let option = document.createElement("option")
-          option.textContent = team.teamName
-          console.log(option.textContent)
+        let option = document.createElement("option")
+        option.textContent = team.teamName
+        console.log(option.textContent)
         selector.appendChild(option)
-        }
+      }
 
 
-      let td4 = document.createElement("button")
-      td4.textContent = "Update user"
-      td4.className = "btn btn-success"
+      let td4 = document.createElement("td")
+      let update = document.createElement("button")
+      update.textContent = "Update rider"
+      update.className = "btn btn-success"
+      let td5 = document.createElement("td")
+      let deletebtn = document.createElement("button")
+      deletebtn.textContent = "Delete rider"
+      deletebtn.className = "btn btn-danger"
 
 
       parent.appendChild(tableRow)
@@ -40,6 +45,10 @@ async function printBikerTable() {
       tableRow.appendChild(td3)
       td3.appendChild(selector)
       tableRow.appendChild(td4)
+      td4.appendChild(update)
+      tableRow.appendChild(td5)
+      td5.appendChild(deletebtn)
+
     }
   }
 }
