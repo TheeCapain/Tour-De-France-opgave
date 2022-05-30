@@ -56,12 +56,12 @@ public class initData implements CommandLineRunner {
         //HOLD 2
 
         Biker biker5 = new Biker();
-        biker5.setBikerName(" VAN MOER Brent");
+        biker5.setBikerName("VAN MOER Brent");
         biker5.setTeam(team2);
         bikerService.saveBiker(biker5);
 
         Biker biker6 = new Biker();
-        biker6.setBikerName(" WELLENS Tim");
+        biker6.setBikerName("WELLENS Tim");
         biker6.setTeam(team2);
         bikerService.saveBiker(biker6);
 

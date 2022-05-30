@@ -26,12 +26,10 @@ public class BikerService {
         return null;
     }
 
-    public List<Biker> sortTeams(Sort by){
-        return bikerRepository.findAll();
-    }
+    public Optional<Biker> getBikerById(int id) {
+            return bikerRepository.findById(id);
 
-    public Optional<Biker> getBikerByid(int id) {
-        return bikerRepository.findById(id);
+
     }
 
     public Biker updateBiker(Biker biker, int id) {

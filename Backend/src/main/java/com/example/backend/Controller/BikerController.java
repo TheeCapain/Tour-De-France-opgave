@@ -2,6 +2,7 @@ package com.example.backend.Controller;
 
 import com.example.backend.Model.Biker;
 import com.example.backend.Model.Team;
+import com.example.backend.Repository.BikerRepository;
 import com.example.backend.Service.BikerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -21,43 +22,47 @@ public class BikerController {
     @Autowired
     private BikerService bikerService;
 
-    private Sort.Direction getSortDirection(String direction) {
-        if (direction.equals("asc")) {
+    @Autowired
+    private BikerRepository bikerRepository;
+
+    public Sort.Direction getSortDirection(String direction) {
+        if (direction.equals("desc")) {
             return Sort.Direction.DESC;
         } else {
             return Sort.DEFAULT_DIRECTION;
         }
     }
 
-
     @PostMapping("/new")
     @ResponseStatus(HttpStatus.CREATED)
-    public Biker createNewBiker(@RequestBody Biker biker){
+    public Biker createNewBiker(@RequestBody Biker biker) {
         System.out.println(biker.getBikerName());
         return bikerService.saveBiker(biker);
     }
 
     @GetMapping("/{id}")
-    public Optional<Biker> getBikerById(@PathVariable int id){
-       return bikerService.getBikerByid(id);
+    public Optional<Biker> getBikerById(@PathVariable int id) {
+        return bikerService.getBikerById(id);
     }
+
+
     @GetMapping("/all")
-    public List<Biker> getAllBikers(){
+    public List<Biker> getAllBikers() {
         return bikerService.getAllBikers();
     }
 
     @PutMapping("/update/{id}")
-    public Biker updateBiker(@RequestBody Biker biker, @PathVariable int id){
+    public Biker updateBiker(@RequestBody Biker biker, @PathVariable int id) {
         return bikerService.updateBiker(biker, id);
     }
 
     @DeleteMapping("/delete/{id}")
-    public void deleteBiker(@PathVariable int id){
+    public void deleteBiker(@PathVariable int id) {
         bikerService.deleteBiker(id);
     }
 
     @GetMapping("/sorted")
-    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerName, desc") String[] sort) {
+    public ResponseEntity<List<Biker>> getTeamsAlphabetically(@RequestParam(defaultValue = "bikerName, asc") String[] sort) {
         for (String s : sort) {
             System.out.println(s);
         }
@@ -72,15 +77,10 @@ public class BikerController {
             orders.add(new Sort.Order(getSortDirection(sort[1]), sort[0]));
         }
 
-        List<Biker> bikers = bikerService.sortTeams(Sort.by(orders));
+        List<Biker> bikers = bikerRepository.findAll(Sort.by(orders));
 
         if (bikers.isEmpty())
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         return new ResponseEntity<>(bikers, HttpStatus.OK);
     }
-
-
-
-
-
 }
