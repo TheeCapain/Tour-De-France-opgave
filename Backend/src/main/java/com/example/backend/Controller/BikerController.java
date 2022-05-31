@@ -25,6 +25,7 @@ public class BikerController {
     @Autowired
     private BikerRepository bikerRepository;
 
+
     public Sort.Direction getSortDirection(String direction) {
         if (direction.equals("desc")) {
             return Sort.Direction.DESC;
@@ -37,6 +38,8 @@ public class BikerController {
     @ResponseStatus(HttpStatus.CREATED)
     public Biker createNewBiker(@RequestBody Biker biker) {
         System.out.println(biker.getBikerName());
+        biker.setBikerName(biker.getBikerName());
+        biker.setBikerTime(81);
         return bikerService.saveBiker(biker);
     }
 

@@ -105,7 +105,7 @@ async function deleteBiker(id) {
   const response = await fetch(url, fetchOptions);
 
   if (!response.ok) {
-    console.log("fejl")
+    console.log("en fejl")
   }
 
   return response;

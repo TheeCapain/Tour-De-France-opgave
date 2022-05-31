@@ -19,7 +19,9 @@ public class BikerService {
     }
 
     public Biker saveBiker(Biker biker) {
+
         if (biker.getTeam() != null) {
+
             return bikerRepository.save(biker);
         }
         return null;
